@@ -1,0 +1,147 @@
+<div class="main-wrapper" fxLayout="row" fxLayoutAlign="center center">
+  <mat-card class="box">
+    <mat-card-header>
+      <mat-card-title>Registration </mat-card-title>
+    </mat-card-header>
+
+  <form class="form-horizontal" role="form" #f="ngForm" (ngSubmit)="f.form.valid && onformsubmit()"  >
+      <mat-card-content>
+        <mat-form-field class="example-full-width">
+          <input
+            matInput
+            type="text"
+            [(ngModel)]="usermodel.username"
+            [ngClass]="{'invalid-data': username.invalid && f.touched,
+                        'valid-data': username.valid && f.submitted }"
+            name="username"
+            #username="ngModel"
+            placeholder="Enter username"
+            class="form-control" required />
+
+          <mat-error *ngIf="(username.invalid && f.touched) || (username.invalid && f.submitted)">
+            <span style="color: red">Please Enter username</span>
+          </mat-error>
+        </mat-form-field>
+
+        <mat-form-field class="example-full-width">
+          <input matInput type="email" name="email" placeholder="User Email"
+          [(ngModel)]="usermodel.useremail"
+          [ngClass]="{'invalid-data': useremail.invalid && f.touched,
+                      'valid-data': useremail.valid && f.submitted }"
+          #useremail="ngModel"
+          class="form-control"  pattern="^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"
+           required    />
+
+           <mat-error *ngIf="(useremail.invalid && f.touched) || (useremail.invalid && f.submitted) || useremail.dirty">
+            <span style="color: red;" class="text-danger" *ngIf="useremail.errors?.['required']">Email address is required</span>
+            <span style="color: red;" class="text-danger" *ngIf="useremail.errors?.['pattern']">Email address is invalid</span>
+          </mat-error>
+          </mat-form-field>
+
+        <mat-form-field class="example-full-width">
+          <input type="password" name="password" class="form-control"  matInput placeholder="Password"
+              [(ngModel)]="usermodel.userpassword" #userpassword="ngModel" 
+             
+              [ngClass]="{'invalid-data': userpassword.invalid && userpassword.touched ,
+               'valid-data': userpassword.valid && f.submitted}"      
+               pattern="(?=^.{8,}$)(?=.*\d)(?=.*[!@#$%^&*]+)(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$"
+              required>
+
+              <mat-error *ngIf="(userpassword.invalid && userpassword.touched) 
+              || userpassword.dirty || (userpassword.invalid && f.submitted)">
+                <div style="color: red;" class="text-danger"
+                         *ngIf="userpassword.errors?.['required']">Password is required</div>
+                <div style="color: red;" class="text-danger"
+                         *ngIf="userpassword.errors?.['pattern']"> 
+                  <p>The password length must be greater than or equal to 8</p>
+                  <p>The password must contain one or more uppercase characters</p>
+                  <p>The password must contain one or more lowercase characters</p>
+                  <p>The password must contain one or more numeric values</p>
+                  <p>The password must contain one or more special characters</p>
+                  <p>
+                  </div>           
+              </mat-error>
+        </mat-form-field>
+
+
+
+
+
+        <mat-form-field class="example-full-width">
+          <input type="text" name="mobileNumber" class="form-control"  matInput placeholder="Mobile Number"
+     [ngModel]="usermodel.usermobile"
+          [ngClass]="{'invalid-data': usermobile.invalid && usermobile.touched ,
+           'valid-data': usermobile.valid && f.submitted}"
+           pattern="^((\\+91-?)|0)?[0-9]{10}$" #usermobile="ngModel" required>  
+
+           <mat-error *ngIf="(usermobile.invalid && usermobile.touched) 
+           || usermobile.dirty || (usermobile.invalid && f.submitted)">
+            <span style="color: red;" class="text-danger" 
+            *ngIf="usermobile.errors?.['required']">Mobile number is required</span>
+            <span style="color: red;" class="text-danger"
+             *ngIf="usermobile.errors?.['pattern']">10 Digit Mobile number required</span>
+          </mat-error>
+        </mat-form-field>
+
+
+
+
+
+        <mat-form-field class="example-full-width">
+          <input
+            matInput
+            type="text"
+            [(ngModel)]="usermodel.usercontry"
+            [ngClass]="{'invalid-data': usercontry.invalid && f.touched,
+                        'valid-data': usercontry.valid && f.submitted }"
+            name="usercontry"
+            #usercontry="ngModel"
+            placeholder="Enter usercontry"
+            class="form-control" required />
+
+          <mat-error *ngIf="(usercontry.invalid && f.touched) || (usercontry.invalid && f.submitted)">
+            <span style="color: red">Please Enter usercontry</span>
+          </mat-error>
+
+        </mat-form-field>
+
+        <mat-form-field class="example-full-width">
+          <mat-label>Choose designation</mat-label>
+          <mat-select class="form-class" name="designation" [(ngModel)] = "usermodel.userdesignation" 
+          #userdesignation="ngModel"
+          [ngClass]="{'invalid-data': userdesignation.invalid && f.touched,
+                      'valid-data': userdesignation.valid && f.submitted }" required
+          >
+            <mat-option [value]="user" *ngFor="let user of User"
+              >{{ user }}
+            </mat-option>
+          </mat-select>
+
+          <mat-error *ngIf="(userdesignation.invalid && f.touched) || (userdesignation.invalid && f.submitted)">
+            <span style="color: red">Please Select userdesignation</span>
+          </mat-error>
+
+        </mat-form-field>
+      </mat-card-content>
+      <button
+        type="submit"
+        mat-stroked-button
+        color="accent"
+        class="btn-block"
+        class="btn btn-primary"
+        style="margin: 4px"
+      >
+        Register
+      </button>
+      <button
+        type="reset"
+        mat-stroked-button
+        color="accent"
+        class="btn-block"
+        class="btn btn-default"
+      >
+        Reset
+      </button>
+    </form>
+  </mat-card>
+</div>
